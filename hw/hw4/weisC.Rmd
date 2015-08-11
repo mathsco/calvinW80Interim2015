@@ -1,0 +1,129 @@
+---
+title: "HW4"
+author: "CNW"
+date: "1/14/2015"
+output: html_document
+---
+
+4.
+a)10%
+
+b)1%
+
+c)
+
+d)When you get up to large amounts of predictors in the test data in order to account for all of them the data points have to be spread out. Based on the answers to a-c you use less and less of your training observations to make predictions.
+
+6.
+a) Y=e^(-6+.05(X1)+1(X2))/(1+e^(-6+.05(X1)+1(X2)))
+
+Where X1 is hours studied and X2 is undergrad GPA.
+Let X1=40, X2=3.5. Then Y=.3775
+There is a 37.75% chance that the student will receive an A.
+
+b) Let Y=50, X2=3.5. Then X1=50.
+The student will have to study 50 hours in order to receive an A on the test.
+
+9.
+a)X1/(1+X1)=Y
+
+Where X1 is to default or not, and Y is the probability of defaulting.
+Let Y=.37. Then X1=.27. 
+
+So 27% of people will actually default.
+
+b)Now let X1=.16. Then Y=.19
+
+The odds she will default are .19.
+
+
+10.
+
+a)
+```{r, echo=FALSE}
+library(ISLR)
+summary(Weekly)
+pairs(~.,data=Weekly, cex=.3)
+```
+There are patterns in Year and Volume, and all of the Lags and Volume. All of the Lags paired together appear to be very similar.
+
+b)
+```{r, echo=FALSE}
+W1=glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data=Weekly, family=binomial)
+summary(W1)
+```
+Lag 2 appears to be the only statistically significant predictor (p=.0296).
+
+c)
+```{r, echo=FALSE}
+attach(Weekly)
+glm.probs = predict(W1, type = "response")
+glm.pred = rep("Down", length(glm.probs))
+glm.pred[glm.probs > 0.5] = "Up"
+table(glm.pred, Direction)
+prop.table(table(glm.pred, Direction))
+```
+
+d)
+```{r, echo=FALSE}
+attach(Weekly)
+train = (Year < 2009)
+Weekly.0910 = Weekly[!train, ]
+glm.fit = glm(Direction ~ Lag2, data = Weekly, family = binomial, subset = train)
+glm.probs = predict(glm.fit, Weekly.0910, type = "response")
+glm.pred = rep("Down", length(glm.probs))
+glm.pred[glm.probs > 0.5] = "Up"
+Direction.0910 = Direction[!train]
+table(glm.pred, Direction.0910)
+```
+
+g)
+```{r,echo=FALSE}
+library(class)
+train.X = as.matrix(Lag2[train])
+test.X = as.matrix(Lag2[!train])
+train.Direction = Direction[train]
+set.seed(1)
+knn.pred = knn(train.X, test.X, train.Direction, k = 1)
+table(knn.pred, Direction.0910)
+```
+
+12.
+a)
+```{r, echo=TRUE}
+Power=function(){2^3}
+print(Power())
+```
+
+b)
+```{r, echo=TRUE}
+Power2=function(x,a){x^a}
+Power2(3,8)
+```
+
+c)
+```{r,echo=FALSE}
+Power2(10,3)
+Power2(8,17)
+Power2(131, 3)
+```
+
+d)
+```{r, echo=FALSE}
+Power3=function(x,a){result=x^a
++ return(result)}
+```
+
+e)
+```{r, echo=FALSE}
+x=1:10
+plot(x, Power3(x,2), log="xy", ylab="Log of y=x^2", xlab="Log of x", main="Log of x^2 versus Log of x")
+```
+
+f)
+
+```{r, echo=FALSE}
+PlotPower = function(x, a){plot(x, Power3(x, a))}
+
+PlotPower(1:10, 3)
+```

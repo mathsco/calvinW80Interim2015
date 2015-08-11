@@ -1,0 +1,163 @@
+---
+title: "HW3"
+author: "CNW"
+date: "1/13/2015"
+output: html_document
+---
+```{r, echo=FALSE}
+library(MASS)
+library(ISLR)
+```
+1. The null hypothesis was that there is no relationship between TV, radio, and newspaper advertisements and sales. Based on the significant p-values of TV and radio, it would appear that TV and radio are in fact related to sales. The p-value for newspaper is not significant (.8599) and would therefore indicate that newspaper is not related to sales.
+
+3.
+a) iii. is correct because as GPA increases for females the value of the interaction term decreases and is negative and would therefore decrease the salary response. However, as GPA increases for males the value of the interaction term just becomes 0 and would therefore not effect the salary response. 
+
+b) She would earn $137,100.
+
+c) True; even in the previous example using large numbers like an IQ of 110 and GPA of 4.0 there was only an increase in salary by $4,400  which is rather minimal to the result. You could erase this term in the model and there would not be much of a change.
+
+4.
+a) The linear regression would have a lower training RSS than the cubic regression. The cubic regression may not fit at all or may overfit the data and therefore would create some larger residual sums. The linear regression would follow the data better since it is the true relationship.
+
+b) If the cubic regression overfits the data then the test RSS would be lower. A model that overfits would result in smaller residual sums since the test data chosen is usually more random than the data.
+
+c) The cubic regression would have a lower training RSS because it would better fit the nonlinear data. 
+
+d) The cubic regression would also have a lower test RSS because it is more flexible than the linear regression and would likely have a better chance at predicting test data.
+
+8.
+a)
+```{r, echo=FALSE}
+fit1= lm(mpg~horsepower, data=Auto)
+summary(fit1)
+```
+i- There is definitely a relationship between mpg and horsepower (p<2.2e-16).
+
+ii- The relationship is moderately strong (R^2=.6059).
+
+iii- It is a negative relationship because the coefficient of horsepower is negative (-.0157845).
+
+iv- 
+```{r}
+beta=39.936
+beta1=-.1578
+beta+(beta1*98)
+```
+The predicted mpg for 98 horspower would be 24.4716.
+
+```{r, echo=TRUE}
+#Prediction Interval for horsepower of 98#
+predict(fit1, data.frame(horsepower=98), interval="prediction")
+#95% Confidence Interval for horsepower of 98#
+predict(fit1, data.frame(horsepower=98), interval="confidence", level=.95)
+```
+
+b)
+```{r}
+plot(mpg~horsepower, data=Auto)
+abline(fit1, col="red")
+```
+
+c)
+```{r}
+plot(residuals(fit1))
+```
+There is a slight curvature to the residual plot so the fit we have in our linear model is not quite the right one.
+
+
+10.
+a)
+```{r, echo=FALSE}
+FIT1=lm(Sales~ Price+Urban+US, data=Carseats)
+lm(FIT1)
+```
+
+b) Given the coefficients of the multiple regression model price has a negative relationship (-.05446) with sales as does having a store in an urban location (-.02192). So as price increases sales decrease, and if the store is in an urban location sales decrease. However, if the store is in the US it has a positive relationship (1.20057) with sales.
+
+c)Y=13.04347-.05446(X1)-.02192(X2)+1.20057(X3)
+Where Y=Sales in thousands, X1 is Price per carseat, X2 is 0 for rural store location or 1 for urban store location, and X3 is 0 for non US store or 1 for US store.
+
+d)
+```{r, echo=FALSE}
+summary(FIT1)
+```
+We can reject the null hypothesis for the predictor Urban (p=.936)
+
+e)
+```{r, echo=FALSE}
+FIT2=lm(Sales~Price+US, data=Carseats)
+summary(FIT2)
+```
+
+f) The first model which included Urban as a predictor had an RSE of 2.472 and an R^2 value of .2393 which indicates a rather poor fit. The second model which removed Urban as a predictor had a slightly better RSE of 2.469 and the same R^2 value of .2393. Essentially neither model is a very good one for this data set.
+
+g)
+```{r, echo=FALSE}
+confint(FIT2, level=.95)
+```
+
+h)
+```{r, echo=FALSE}
+plot(FIT2)
+```
+There is evidence for a couple of outliers and some points of very high leverage.
+
+14.
+a)y=2+2*x1+0.3*x2+rnorm (100)
+The regression coefficients are 2 for x1 and .3 for x2
+
+b)
+```{r, echo=FALSE}
+set.seed=1
+x1=runif(100)
+x2=0.5*x1+rnorm (100)/10
+y=2+2*x1+0.3*x2+rnorm (100)
+plot(x1,x2)
+cor(x1, x2)
+```
+There is a pretty strong positive linear relationship between x1 and x2, r=.80.
+
+c)
+```{r, echo=FALSE}
+summary(lm(y~x1+x2))
+```
+Beta hat 0= 2.0384
+Beta hat 1= 2.1707
+Beta hat 2= 0.1894
+No you cannot reject the null hypothesis for Beta hat 1 because the p-value is significant (.00136). You can reject the null for Beta hat 2 because the p-value is not significant (.85573).
+
+d) 
+```{r, echo=FALSE}
+summary(lm(y~x1))
+```
+The fit is not much better with x2 out of the picture. But we still cannot reject the null hypothesis for Beta 1 (p=8.12e-08).
+
+e)
+```{r, echo=FALSE}
+summary(lm(y~x2))
+```
+The fit is also not much better without x1. We cannot reject the null hypothesis for Beta 1 (p=1.75e-05).
+
+f) In a model with just x2 as a predictor of y the result is significant. However in a model with x1 and x2 as predictors, x2 is not a significant predictor. This is a contradiction. This therefore must indicate some sort of colinearity.
+
+g) 
+```{r, echo=FALSE}
+x1=c(x1, 0.1)
+x2=c(x2, 0.8)
+y=c(y, 6)
+summary(lm(y~x1+x2))
+```
+In this model, with the new information, both predictors are significant. This is different from the first time around with this model because X2 was not significant and so you cannot reject the null hypothesis. This new point is a high leverage point and an outlier.
+
+```{r, echo=FALSE}
+summary(lm(y~x1))
+```
+Our results do not change very much because x1 is still a significant predictor. In this model the new point is an outlier and also a high leverage point.
+
+
+```{r, echo=FALSE}
+summary(lm(y~x2))
+```
+In this model x2 is still significant. In this model the new point is neither an outlier nor a high leverage point.
+

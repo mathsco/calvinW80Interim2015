@@ -1,0 +1,111 @@
+---
+title: "Homework Day 6"
+author: "Barrett Bryson"
+date: "1/15/2015"
+output: html_document
+---
+
+**Problem 4**<br>
+**a)** 10% <br>
+**b)** 1% <br>
+**c)** 10^-98% <br>
+**d)** As p get larger the data captured in each range get smaller and smaller. By the time we get to p=7 you need an extremely large data set to have a significant enough number of neighbors to make an accurate prediction. <br>
+**e)** p=1 l=.1 <br>
+p=2 l=sqrt(.1)=0.3162278<br>
+p=100 l=.1^(1/100)=0.9772372<br>
+<br>
+**Problem 6**<br>
+**a)** 
+```{r}
+exp(-6+.05*(40)+1*(3.5))/(1+exp(-6+.05*(40)+1*(3.5)))
+```
+<br>
+**b)**
+```{r}
+2.5/.05
+```
+<br>
+**Problem 9**<br>
+**a)** 27% <br>
+**b)** .19 <br>
+<br>
+```{r,echo=FALSE}
+library("ISLR")
+```
+**Problem 10** <br>
+**a)**
+```{r,echo=FALSE}
+summary(Weekly)
+pairs(Weekly)
+cor(Weekly[-9])
+```
+It appears there is some correlation between volume and year.<br>
+**b)**
+```{r}
+attach(Weekly)
+glm.fit = glm(Direction~.-Today,data=Weekly,family=binomial)
+summary(glm.fit)
+```
+lag 2 appears to be the only statiscally significant predictor.<br>
+**c)**
+```{r}
+glm.probs = predict(glm.fit, type = "response")
+glm.pred = rep("Down", length(glm.probs))
+glm.pred[glm.probs > 0.5] = "Up"
+xtabs(~glm.pred+Weekly$Direction)
+```
+The prediction is right slightly more than half of the time. It predicts the market is going up very frequently. <br>
+**d)**
+```{r}
+train = (Year < 2009)
+Weekly.20092010 = Weekly[!train, ]
+glm.fit2 = glm(Direction~Lag2,data=Weekly,family=binomial)
+summary(glm.fit2)
+glm.probs2 = predict(glm.fit2, Weekly.20092010, type = "response")
+glm.pred2 = rep("Down", length(glm.probs2))
+glm.pred2[glm.probs2 > 0.5] = "Up"
+xtabs(~glm.pred2+Weekly.20092010$Direction)
+```
+it is now correct 62% of the time.<br>
+<br>
+**Problem 12**<br>
+**a)**
+```{r}
+Power = function(){
+  return(2^3)
+}
+Power()
+```
+**b)**
+```{r}
+Power2 = function(x, a){
+  return(x^a)
+}
+Power2(3,8)
+```
+**c)**
+```{r}
+Power2(10,3)
+Power2(8,17)
+Power2(131,3)
+```
+**d)**
+```{r}
+Power3 = function(x, a){
+  return(x^a)
+}
+```
+**e)**
+```{r,echo=FALSE}
+plot(c(1:10),Power3(c(1:10),2),xlab="x",ylab="Y=x^2",main="Y as a function of x")
+plot(c(1:10),Power3(c(1:10),2),xlab="x",ylab="Y=x^2",log="x",main="Log Scale x")
+plot(c(1:10),Power3(c(1:10),2),xlab="x",ylab="Y=x^2",log="y",main="Log Scale Y")
+plot(c(1:10),Power3(c(1:10),2),xlab="x",ylab="Y=x^2",log="xy",main="Log Scale x & Y")
+```
+**f)**
+```{r}
+PlotPower = function(x,a){
+  plot(x,x^a,xlab="x",ylab="Y=x^a",main="Y as a function of x")
+}
+PlotPower(c(1:10),3)
+```

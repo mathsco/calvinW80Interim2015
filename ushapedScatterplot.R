@@ -1,0 +1,6 @@
+require(lattice)
+set.seed(1)
+xs = runif(50,3,8)
+ys = -(xs-5.5)^2/3 + 7 + rnorm(50, 0, .2)
+print(xyplot(ys ~ xs, pch=19, cex=.6, col="black"))
+print(cor(xs,ys))

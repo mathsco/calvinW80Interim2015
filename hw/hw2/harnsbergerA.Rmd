@@ -1,0 +1,27 @@
+---
+title: "Homework 2 W80"
+author: "Austin Harnsberger"
+date: "1/11/2015"
+output: html_document
+---
+
+**1)**
+Overfitting is when a model follows the errors, or noise, too closely.
+
+**2)** Test MSE
+
+**3)** A more flexible method/model has a higher variance
+
+**4)** A highly responsive method tends to have a lower bias
+
+**5)** 
+
+**6)** K = 100 would have a higher bias because less flexibility. 
+
+**7)** This results in the exact same results in random sampling everytime you hit the run button.
+
+
+**Exercise 9**
+A) Qualitative: Name, year, origin, 
+   Quantitative:Cylinders, horsepower, mpg, weight, acceleration, displacement
+B) 

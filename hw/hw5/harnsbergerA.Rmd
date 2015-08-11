@@ -1,0 +1,82 @@
+---
+title: "Homework 5 W80"
+author: "Austin Harnsberger"
+date: "1/19/2015"
+output: pdf_document
+---
+**5)**  
+  **A)**  
+  ```{r}
+  library(ISLR)
+  logfit = glm(default ~ . - student, data = Default, family= binomial)
+  plot(logfit)
+  ```  
+  **B)**  
+  ```{r}
+  set.seed(1)
+  train = sample(1:2500,1250,replace = FALSE)
+  lm.fit = lm(default ~ balance, data=Default, subset=train)
+  attach(Default)
+  mean((default -predict(lm.fit,Default))[-train]^2)
+  ```  
+  **C)**
+  ```{r}
+  set.seed(3)
+  train = sample(1:2500,1250,replace = FALSE)
+  lm.fit = lm(default ~ balance, data=Default, subset=train)
+  attach(Default)
+  mean((default -predict(lm.fit,Default))[-train]^2)
+  ```  
+  
+  ```{r}
+  set.seed(12)
+  train = sample(1:2500,1250,replace = FALSE)
+  lm.fit = lm(default ~ balance, data=Default, subset=train)
+  attach(Default)
+  mean((default -predict(lm.fit,Default))[-train]^2)
+  ```
+  ```{r}
+  set.seed(89)
+  train = sample(1:2500,1250,replace = FALSE)
+  lm.fit = lm(default ~ balance, data=Default, subset=train)
+  attach(Default)
+  mean((default -predict(lm.fit,Default))[-train]^2)
+  ```
+  ```{r}
+  logfit = glm(default ~ ., data = Default, family= binomial)
+  set.seed(1)
+  train = sample(1:2500,1250,replace = FALSE)
+  lm.fit = lm(default ~ balance, data=Default, subset=train)
+  attach(Default)
+  mean((default -predict(lm.fit,Default))[-train]^2)
+  ```
+**8)**  
+  **A)**  
+  ```{r}
+   set.seed(1)
+   y=rnorm(100)
+   x=rnorm(100)
+   y=x-2*x^2+rnorm (100)
+   ```
+   p= 1 because it is the set.seed
+   n= the number of observations in the plot, so rnorm(100)  
+   **B)**
+   ```{r}
+   plot(x~y)
+   ```
+   It is a bell curve along the X-axis with the mean roughly in the middle at x = 0  
+   **C)**
+   set.seed(1)
+   glm.fit = glm(y~x, data = y)
+   cv.err = cv.glm(y, glm.fit)
+   names(cv.err)
+
+   set.seed(34)
+   glm.fit = glm(y~x, data = y)
+   cv.err = cv.glm(y, glm.fit)
+   names(cv.err)
+
+   
+   
+   
+   

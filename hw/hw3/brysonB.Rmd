@@ -1,0 +1,176 @@
+---
+title: "Homework day 3"
+author: "Barrett Bryson"
+date: "1/11/2015"
+output: html_document
+---
+```{r}
+library(ISLR)
+library (MASS)
+```
+**Problem 7**<br>
+**A)**<br>
+Point 1: 3 units
+Point 2: 2 units
+Point 3: 3.16227 units
+Point 4: 2.23606 units
+Point 5: 1.41421 units
+Point 6: 1.73205 units
+<br>
+**B)**<br>
+With K=1 the prediction would be red because the sole nearest point.<br>
+<br>
+**C)**<br>
+With K=3 the prediction would be red beacuse of the three closest points two are red and one is green.
+<br>
+**D)**<br>
+We would expect a smaller k values so that it closer follows the points.
+
+**Problem 9** <br>
+**A)** Qualitative:Name, Origin <br>
+Quantative: cylinders, displacement,horsepower, weight, acceleration, year <br><br>
+**B)**
+
+```{r}
+
+range(Auto$cylinders)
+range(Auto$displacement)
+range(Auto$horsepower)
+range(Auto$weight)
+range(Auto$acceleration)
+range(Auto$year)
+```
+<br>
+**C)**
+```{r}
+
+mean(Auto$cylinders)
+sd(Auto$cylinders)
+mean(Auto$displacement)
+sd(Auto$displacement)
+mean(Auto$horsepower)
+sd(Auto$horsepower)
+mean(Auto$weight)
+sd(Auto$weight)
+mean(Auto$acceleration)
+sd(Auto$acceleration)
+mean(Auto$year)
+sd(Auto$year)
+```
+<br>
+**D)**
+```{r}
+ReducedAuto = Auto[-c(10:85),]
+
+range(ReducedAuto$cylinders)
+mean(ReducedAuto$cylinders)
+sd(ReducedAuto$cylinders)
+range(ReducedAuto$displacement)
+mean(ReducedAuto$displacement)
+sd(ReducedAuto$displacement)
+range(ReducedAuto$horsepower)
+mean(ReducedAuto$horsepower)
+sd(ReducedAuto$horsepower)
+range(ReducedAuto$weight)
+mean(ReducedAuto$weight)
+sd(ReducedAuto$weight)
+range(ReducedAuto$acceleration)
+mean(ReducedAuto$acceleration)
+sd(ReducedAuto$acceleration)
+range(ReducedAuto$year)
+mean(ReducedAuto$year)
+sd(ReducedAuto$year)
+```
+<br>
+**E)**<br>
+```{r,echo=F}
+plot(Auto$cylinders,Auto$mpg,xlab="Number of Cylinders",ylab="Miles per Gallon",col="red")
+```
+<br>
+Graph shows a general negative trend between the number of cylinders and the miles per gallon of the car. <br>
+```{r,echo=F}
+plot(Auto$displacement,Auto$mpg,xlab="Length of Displacement",ylab="Miles per Gallon",col="yellow")
+```
+<br>
+Graph shows a general negative trend between the length of displacement and the miles per gallon of the car. <br>
+
+```{r,echo=F}
+plot(Auto$horsepower,Auto$mpg,xlab="Horsepower",ylab="Miles per Gallon",col="blue")
+```
+<br>
+Graph shows a general negative trend between the horsepower of the engine and the miles per gallon of the car. <br>
+
+```{r,echo=F}
+plot(Auto$weight,Auto$mpg,xlab="Weight of Car",ylab="Miles per Gallon",col="orange")
+```
+<br>
+Graph shows a general negative trend between the weight of the car and the miles per gallon of the car. <br>
+
+```{r,echo=F}
+plot(Auto$acceleration,Auto$mpg,xlab="Acceleration",ylab="Miles per Gallon",col="green")
+```
+<br>
+Graph shows a general positive trend between the acceleration and the miles per gallon of the car. <br>
+
+```{r,echo=F}
+plot(Auto$origin,Auto$mpg,xlab="Origin",ylab="Miles per Gallon",col="purple")
+```
+<br>
+Graph shows that japaneese cars tend to do the best, European are second best and American tend to be the worst, in terms of mpg. <br>
+<br>
+**F)**<br>
+I would suggest the inclusion of drag. The different body shapes of different models of cars can lead to difference in the friction due to air.
+<br><br>
+
+**Problem 10**<br>
+**A)**<br> This data set has 14 columns and 506 rows.<br>
+Description of Columns:<br>
+crim:
+per capita crime rate by town.
+<br>
+zn:
+proportion of residential land zoned for lots over 25,000 sq.ft.
+<br>
+indus:
+proportion of non-retail business acres per town.
+<br>
+chas:
+Charles River dummy variable (= 1 if tract bounds river; 0 otherwise).
+<br>
+nox:
+nitrogen oxides concentration (parts per 10 million).
+<br>
+rm:
+average number of rooms per dwelling.
+<br>
+age:
+proportion of owner-occupied units built prior to 1940.
+<br>
+dis:
+weighted mean of distances to five Boston employment centres.
+<br>
+rad:
+index of accessibility to radial highways.
+<br>
+tax:
+full-value property-tax rate per \$10,000.
+<br>
+ptratio:
+pupil-teacher ratio by town.
+<br>
+black:
+1000(Bk - 0.63)^2
+where Bk is the proportion of blacks by town.
+<br>
+lstat:
+lower status of the population (percent).
+<br>
+medv:
+median value of owner-occupied homes in \$1000s.
+<br>
+<br>
+**B)**<br>
+```{r,echo=FALSE}
+pairs(~crim+zn+indus+chas+nox+rm+age+dis+rad+tax+ptratio+black+lstat+medv,Boston)
+```
+This allows us to quickly spot correlations in the data<br>

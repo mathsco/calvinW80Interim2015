@@ -1,0 +1,65 @@
+---
+title: "Ch 5 Homework"
+author: "Julia Van Dyke"
+date: "January 19, 2015"
+output: pdf_document
+---
+#**5**
+#a
+```{r}
+set.seed(22)
+library(ISLR)
+attach(Default)
+glm.default <- glm(default~income+balance, family=binomial)
+summary(glm.default)
+```
+#b
+```{r}
+train=sample(10000,5000)
+lm.fit=glm(default~income+balance, family=binomial, subset=train)
+summary(lm.fit)
+mean((default-predict(lm.fit,Default))[-train]^2)
+```
+#c
+```{r}
+train=sample(10000,5000)
+lm.fit=glm(default~income+balance, family=binomial, subset=train)
+mean((predict(lm.fit,Default))[-train]^2)
+```
+#c
+```{r}
+train2=sample(10000,5000)
+lm.fit=glm(default~income+balance, family=binomial, subset=train2)
+mean((predict(lm.fit,Default))[-train2]^2)
+train3=sample(10000,5000)
+lm.fit=glm(default~income+balance, family=binomial, subset=train3)
+mean((predict(lm.fit,Default))[-train3]^2)
+train4=sample(10000,5000)
+lm.fit=glm(default~income+balance, family=binomial, subset=train4)
+mean((predict(lm.fit,Default))[-train4]^2)
+```
+#d
+```{r}
+glm.default2 <- glm(default~income+balance+student,family=binomial)
+summary(glm.default2)
+train=sample(10000,5000)
+lm.fit2=glm(default~income+balance+student, family=binomial, subset=train)
+mean((predict(lm.fit2,Default))[-train]^2)
+```
+#the added variable doesn't seem to make much difference in the test error rate.
+
+#**8**
+#a
+```{r}
+set.seed(1)
+y=rnorm(100)
+x=rnorm(100)
+y=x-2*x^2+rnorm(100)
+```
+#n=100, p=2
+#b
+```{r}
+plot(x,y)
+```
+#The data seems to follow a curve. y is highest when x is around 0, and lowest when x is around -2 or 2.
+

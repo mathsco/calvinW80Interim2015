@@ -1,0 +1,23 @@
+---
+title: "makingModelMatrix"
+author: "TLS"
+date: "1/21/2015"
+output: pdf_document
+---
+In Exercise 8(e) of Chapter 6, you are asked to fit a model to a tenth degree polynomial of a single predictor $X$ using lasso.  Naturally, we will use the glmnet() function as in class, and so we will need a model matrix.  You have few examples of how to build a model matrix.  This document is intended to provide several examples of how you can build a model matrix in this context.
+
+First, we need $X$:
+```{r}
+x = rnorm(100, 11, 2)
+y = 2+11.2*x+5.4*x^2+.025*x^3
+```
+This first approach makes a data frame containing $Y$, $X$, and the various powers of $X$, so that you place yourself in a familiar context in which you have build the model matrix once before.
+```{r}
+myDat = data.frame(x1=x,x2=x^2,x3=x^3,x4=x^4,x5=x^5,x6=x^6,x7=x^7,x8=x^8,x9=x^9,x10=x^10,y)
+xMat = model.matrix(y ~ ., data=myDat)
+```
+
+A second approach is to take advantage of a switch to the poly() command:
+```{r}
+xMat = model.matrix(y ~ poly(x,10,raw=TRUE))[,-1]
+```

@@ -1,0 +1,147 @@
+---
+title: "homework 4"
+author: "Julia Van Dyke"
+date: "January 13, 2015"
+output: html_document
+---
+
+#**1**
+```{r}
+library(ISLR)
+summary(lm(mpg~horsepower,data=Auto))
+```
+#i. There is a relationship, this is shown by the low p-value
+#ii. The relationship is pretty strong
+#iii. The relationship is negative, shown by the negative coefficient
+#iv
+```{r}
+39.9359-.1578*(98)
+confint(lm(mpg~horsepower,data=Auto))
+```
+#b
+```{r, echo=FALSE}
+plot(Auto$horsepower,Auto$mpg)
+abline(lm(mpg~horsepower,data=Auto),col="red")
+```
+#c
+```{r}
+plot(lm(mpg~horsepower,data=Auto))
+```
+#looking at the first graph, we see more residuals above the line than below.
+#**10**
+#a
+```{r}
+lm.carseats <- lm(Sales~Price+Urban+US,data=Carseats)
+summary(lm.carseats)
+```
+#If urban and US are both constant, then for every dollar increase in price, the total sales will drop by about $54. If the seat is sold in the US, it is expected to generate an extra $1200.
+#c
+#X1=price in dollars
+#X2=1 if urban, 0 if not urban
+#X3=1 if US, 0 if not US
+#Y=Sales in thousands of dollars
+#Y=13.043469-0.054459(X1)-0.021916(X2)+1.200573(X3)
+#d
+#Urban
+#e
+
+#**1**
+```{r}
+library(ISLR)
+summary(lm(mpg~horsepower,data=Auto))
+```
+#i. There is a relationship, this is shown by the low p-value
+#ii. The relationship is pretty strong
+#iii. The relationship is negative, shown by the negative coefficient
+#iv
+```{r}
+39.9359-.1578*(98)
+confint(lm(mpg~horsepower,data=Auto))
+```
+#b
+```{r, echo=FALSE}
+plot(Auto$horsepower,Auto$mpg)
+abline(lm(mpg~horsepower,data=Auto),col="red")
+```
+#c
+```{r}
+plot(lm(mpg~horsepower,data=Auto))
+```
+#looking at the first graph, we see more residuals above the line than below.
+#**10**
+#a
+```{r}
+lm.carseats <- lm(Sales~Price+Urban+US,data=Carseats)
+summary(lm.carseats)
+```
+#If urban and US are both constant, then for every dollar increase in price, the total sales will drop by about $54. If the seat is sold in the US, it is expected to generate an extra $1200.
+#c
+#X1=price in dollars
+#X2=1 if urban, 0 if not urban
+#X3=1 if US, 0 if not US
+#Y=Sales in thousands of dollars
+#Y=13.043469-0.054459(X1)-0.021916(X2)+1.200573(X3)
+#d
+#Urban
+#e
+```{r}
+lm.carseats2 <- lm(Sales~Price+US,data=Carseats)
+```
+#f
+#The second one fits better, it has a better value for R^2 and a lower p-value.
+#g
+```{r}
+confint(lm.carseats2)
+```
+#h
+```{r}
+plot(lm.carseats2)
+```
+#The residuals seem to be equally distributed above and below the line
+#**14**
+#a
+```{r}
+set.seed(1)
+x1=runif(100)
+x2=0.5*x1+rnorm(100)/10
+y=2+2*x1+0.3*x2+rnorm(100)
+```
+#y=2+2*x1+0.3*x2+rnorm(100)
+#b
+```{r}
+cor(x1,x2)
+plot(x1,x2)
+```
+#c
+```{r}
+lm.14 <- lm(y~x1+x2)
+summary(lm.14)
+```
+#Y=1.4396(x1)+1.0097(x2)
+#We reject the null hypothesis for x1, but not x2. 
+#d
+```{r}
+lm.14.1 <-lm(y~x1)
+summary(lm.14.1)
+```
+#e
+```{r}
+lm.14.2 <- lm(y~x2)
+summary(lm.14.2)
+```
+#f
+#yes. When the model uses both x1 and x2, the p-values are fairly large, but when x1 and x2 are used seperately they're very small.
+#g
+```{r}
+x1=c(x1, 0.1)
+x2=c(x2, 0.8)
+y=c(y,6)
+lm.14 <- lm(y~x1+x2)
+summary(lm.14)
+lm.14.1 <-lm(y~x1)
+summary(lm.14.1)
+lm.14.2 <- lm(y~x2)
+summary(lm.14.2)
+```
+#The added point is both an outlier and a high leverage point.
+#The coefficients are significantly different.

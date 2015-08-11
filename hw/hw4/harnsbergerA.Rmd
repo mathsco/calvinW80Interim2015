@@ -1,0 +1,72 @@
+---
+title: "Homework 4 W80"
+author: "Austin Harnsberger"
+date: "1/15/2015"
+output: html_document
+---
+```{r}
+library(ISLR)
+```  
+**4)**  
+  **A)** We will use 1/(number of available observations) of the observations to determine our prediction.  
+  **B)** We will use 2/(number of available observations) of the observations for our predictions.  
+  **C)** We use a very large fraction of the available observatations, 100/(number of available observations) to make our predictions.  
+  **D)** As p increases, the number of observations necessary for predictions increases, making the observer have to search further away from the test point to meet the quota of observations. As p increases the model for the KNN becomes more and more linear and rigid.  
+**6)**  
+  **A)**
+  ```{r}
+  A = exp(-6+.05*40+3.5)/(1+exp(-6+.05*40+3.5))
+  A
+  ```  
+  **B)** The student would need 50 hours minimum to have a 50% chance of getting an A with a 3.5 GPA.  
+**9)**  
+  **A)**  The fraction of people who default with odds of .37 is 21%  
+  **B)**  The odds of a person defaulting with 16% chance are .23  
+**10)**
+  **A)** 
+  ```{r}
+  names(Weekly)
+  summary(Weekly)
+  ```
+  Most of the means and medians are close together between columns and all but two of the 1st Qu. are negative.  
+  **B)** 
+**12)**  
+  **A)**  
+  ```{r}
+  Power = 2^3
+  print(Power)
+  ```  
+  **B)**  
+  ```{r}
+  Power2 = function(x,a){
+    Power2 = x^a
+    print(Power2)
+  }  
+  ```
+  **C)**  
+  ```{r}
+  Power2(8,17)
+  Power2(131,3)
+  ```  
+  **D)**  
+  ```{r}
+  Power3 = function(x,a){
+    result = x^a
+    return(result)
+  }
+  ```  
+  **E)** 
+  ```{r}
+  Power3 = function(x){
+    Power3 = x^2
+    plot(Power3)
+  }
+  ```  
+  **F)**
+  ```{r}
+  Powerplot = function(x,a){
+    Powerplot = x^a
+    plot(Powerplot)
+  }
+  Powerplot(1:10,2)
+  ```  
